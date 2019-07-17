@@ -3,16 +3,6 @@
   hosts: all
   tasks:
     -
-      name: "uninstall Java JRE rpm from a local file"
-      yum:
-        name: "*java*"
-        state: absent
-    -
-      name: "install Java JRE rpm from a local file"
-      yum:
-        name: "*java*1.8*"
-        state: present
-    -
       copy:
         dest: /tmp/.
         src: "{{ WORKSPACE }}/target/oms-eureka-service-0.0.1-SNAPSHOT.jar"
