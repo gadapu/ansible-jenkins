@@ -20,15 +20,11 @@ pipeline {
         sh 'echo whoami'
       }
     }
-    stage('CreateInstance') {
+    stage('DeployArtifact') {
       steps {
-        ansiblePlaybook become: true, becomeUser: 'jenkins', credentialsId: 'jenkins-user', inventory: '/etc/ansible/hosts', playbook: '$WORKSPACE/createInstance.yaml'
+        ansiblePlaybook become: true, becomeUser: 'jenkins', credentialsId: 'jenkins-user', inventory: '/etc/ansible/hosts', playbook: '$WORKSPACE/deployArtifact.yaml'
       }
-   }
-   stage('DeployArtifact') {
-      steps {
-       ansiblePlaybook become: true, becomeUser: 'ec2-user', credentialsId: 'ec2-user', extras: '-e WORKSPACE=$WORKSPACE -e host_key_checking=no', inventory: '/tmp/hosts_eureka', playbook: '$WORKSPACE/createInstance.yaml' 
-     }
-     }
-   }  
-  }
+    }
+   
+  }  
+ }
